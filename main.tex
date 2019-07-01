@@ -1,0 +1,68 @@
+\documentclass{beamer}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PAKCAGES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{etoolbox}
+\usepackage{xparse}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{moresize}
+\usepackage{anyfontsize}
+
+\input{src/cmds/commons.tex}
+\input{src/cmds/commands.tex}
+
+\usetheme{Frankfurt}
+
+\title{Path Planning with CPD Heuristics}
+%\subtitle{}
+
+\author{Massimo Bono$^1$, Alfonso E. Gerevini$^1$, Daniel D. Harabor$^2$ and Peter J.Stuckey$^2$}
+\institute{%
+    $^1$\setFontSize{7.8}{Dipartimento di Ingegneria dell'Informazione, Università degli Studi di Brescia, Italy}%
+    \\%
+    $^2$\setFontSize{7.8}{Faculty of Information Technology, Monash University, Melbourne, Australia}%
+    \\%
+    \{mbono, alfonso.gerevini\}@unibs.it, \{daniel.harabor, peter.stuckey\}@monash.edu%
+}
+%\date{\today}
+\date{August 15, 2019}
+
+\setInputPath{%
+    {src/texs}%
+    {src/images}%
+    {src/tikzs}%
+    {src/bibs}%
+}
+
+\begin{document}
+
+% High level
+% SLIDE 1: titolo
+% SLIDE 2: 
+%    - path finding è importante (videogiochi, routing); moderne soluzioni usano auxiliary data per calcolare velocemente;
+%    - una variante del problema è quella in cui i costi degli archi non sono fissi, ma cambiano. 
+%    - 
+path planning is really important, single agents normally navigate through a static map, but what happens in dynamic context (original map is perturbated via non decreasing perturbation?)
+% SLIDE 3: esempio per motivare il lavoro: siamo su una mappa stradale e stiamo seguendo un percorso ottimo. Ad un certo punto
+% sul nostro percorso ottimo scopriamo che  c'è un ingorgo che ci rallenterebbe. Abbiamo quindi la scelta di:
+% ricalcolare il nostro percorso ottimo da zero sulla nuova mappa (mappa originale + perturbazioni) oppure possiamo
+% cercare di calcolare il percorso ottimo sfruttando le informazioni precedenti (mappa original senza perturbazioni)
+% SLIDE 4: table of contents
+%   background: CPD, ALT, AWA*
+% SLIDE 5: CPD (citazione)
+%   faccio vedere come lo costruisco, come lo interrogo nelle query di path finding, complessità;
+% SLIDE 6: ALT (citazione)
+%   descrivo l'euristica. Dico come abbiamo fatto a posizionare i landmark;
+% SLIDE 7: AWA* (citazione)
+%   descrivo l'idea. 
+
+
+
+\input{src/texs/01-titlepage}
+\input{src/texs/02-Introduction}
+
+
+\end{document}
