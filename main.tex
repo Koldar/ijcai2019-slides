@@ -39,30 +39,78 @@
 
 \begin{document}
 
+%https://stackoverflow.com/a/3210406/1887602
+\beamertemplatenavigationsymbolsempty
+
+% tempo totale: 13 minuti => 50 secondi per slide! è chiaro che qualche slide va rimossa
 % High level
 % SLIDE 1: titolo
 % SLIDE 2: 
 %    - path finding è importante (videogiochi, routing); moderne soluzioni usano auxiliary data per calcolare velocemente;
 %    - una variante del problema è quella in cui i costi degli archi non sono fissi, ma cambiano. 
-%    - 
-path planning is really important, single agents normally navigate through a static map, but what happens in dynamic context (original map is perturbated via non decreasing perturbation?)
-% SLIDE 3: esempio per motivare il lavoro: siamo su una mappa stradale e stiamo seguendo un percorso ottimo. Ad un certo punto
+%    - data una mappa, dopo che delle perturbazioni non decrescenti l'hanno modificata, come possiamo calcolare velocemente il percorso ottimo?
+%    - quest apresentazione cercherà di rispondere a questa domanda.
+% SLIDE 3: 
+%   - esempio per motivare il lavoro: siamo su una mappa stradale e stiamo seguendo un percorso ottimo. Ad un certo punto
 % sul nostro percorso ottimo scopriamo che  c'è un ingorgo che ci rallenterebbe. Abbiamo quindi la scelta di:
 % ricalcolare il nostro percorso ottimo da zero sulla nuova mappa (mappa originale + perturbazioni) oppure possiamo
-% cercare di calcolare il percorso ottimo sfruttando le informazioni precedenti (mappa original senza perturbazioni)
+% cercare di calcolare il percorso ottimo sfruttando le informazioni precedenti (mappa originale senza perturbazioni)
 % SLIDE 4: table of contents
-%   background: CPD, ALT, AWA*
-% SLIDE 5: CPD (citazione)
-%   faccio vedere come lo costruisco, come lo interrogo nelle query di path finding, complessità;
-% SLIDE 6: ALT (citazione)
-%   descrivo l'euristica. Dico come abbiamo fatto a posizionare i landmark;
-% SLIDE 7: AWA* (citazione)
-%   descrivo l'idea. 
+%   context and background: CPD, ALT, AWA*
+%   proposed technique:
+%       - CPD Search
+%       - Anytime CPD Search
+%   Experimental results:
+%       - optimal;
+%       - anytime;
+%   Conclusions and future works;
+% SLIDE 5: secondo me qui è meglio scrivere bene il nostro context (ovvero perturbazioni online, preprocessing offline) dato
+%   che è stato un punto che ha creato criticità nella rebuttal;
+%   - il tempo di prerocessing offline non deve essere ammortizzato nell'online;
+% SLIDE 6: CPD (citazione)
+%   - esempio di costruzione (per intenderci quello con la mappa 3x3, non quello di Harabor nel paper);
+%   - esempio di matrice delle adiacenze => compressione con un mini esempio;
+%   - esempio di query, come si fa inserendo la complessità (da s -> a, da a->b, da b -> g);
+% SLIDE 7: ALT (citazione)
+%   - disuguaglianza triangolare con il massimo;
+%   - Dico come abbiamo fatto a posizionare i landmark;
+% SLIDE 8: AWA* (citazione)
+%   - Idea: usare le soluzione trovate per fare pruning sulla ricerca;
+% SLIDE 9: CPD-Search
+%   - nodo di ricerca: location
+%   - MAIN IDEAS:
+%       * il percorso calcolato dal CPD nella mappa originale è un lowerbound del percorso ottimo calcolabile
+%       nella mappa parturbata (siccome le perturbazioni sono non-decrescenti) => euristica ammissibile;
+%       * dato una posizione s, se il percorso generato dal CPD (che è ottimo) è privo di perturbazioni possiamo terminare la ricerca e calcolare
+%           immediatamente il percorso ottimo => early termination;
+% SLIDE 10: sicuramente qui andrebbe messo qualcosa in più della "main idea". Il problema è che non voglio mettere l'algoritmo... troppo
+% lungo e complesso da commmentare.
+% SLIDE 11: Experimental setup
+%   - map pool: Sturtevant;
+%   - how we generated perturbations:
+%       - random perturbations on 10% of edges of the map (3x the original cost);
+%       - perturbation affecting a whole area on a location on the optimal path of a query (up to 4x the original cost);
+% SLIDE 12:
+%   - optimal search:
+%       - results on the cactus plots (hrt201n, dustwallowkeys, mazes);
+% SLIDE 13
+%   - anytime search:
+%       - results on hrt201n map;
+% SLIDE 14: Conclusion and Future works
+%   - we applied CPD technique in the context of dynamic edge-cost;
+%   - we proposed the application in the optimal, bounded and anytime context;
+%   - we have experimentally evaluated the techniques performances against ALT's and showed significant gains;
+%   FUTURE WORKS:
+%   - application of CPD over temporally changing edge-costs for deisgning admissible and unadmissible heuristics;
+%   - application of CPD in the MAPF setting;
+%   - dare l'idea sulle idee di harabor /idee di saetti?
+%       
+%          
 
 
 
 \input{src/texs/01-titlepage}
-\input{src/texs/02-Introduction}
+\input{src/texs/02-introduction}
 
 
 \end{document}
