@@ -18,6 +18,9 @@
 
 \begin{frame}{A simple motivating example}
     \begin{minipage}{0.45\textwidth}
+        \begin{center}
+            \textbf{Original Map}\\
+        \end{center}
         \begin{tikzpicture}
             \tikzset{Vertex/.style={%
                 shape=circle,%
@@ -70,6 +73,9 @@
         $\mbox{\Huge $\Rightarrow$}$
     \end{minipage}%
     \begin{minipage}{0.45\textwidth}
+        \begin{center}
+            \textbf{''Perturbated`` Map}\\
+        \end{center}
         \begin{tikzpicture}
             \tikzset{Vertex/.style={%
                 shape=circle,%
@@ -118,4 +124,17 @@
         \end{tikzpicture}
         $$s_{0,0} \rightarrow s_{0,1} \rightarrow s_{0,2} \rightarrow s_{1,2} \rightarrow s_{2,2}$$
     \end{minipage}
+\end{frame}
+
+\begin{frame}{Talk Outline}
+    \begin{itemize}
+        \item Context and Background:
+        \begin{itemize}
+            \item Compress Path Database (\CPD{});
+            \item \ALT{}, \AWA{};
+        \end{itemize}
+        \item Proposed Techniques: \CPDSearch{} and \anytimeCPDSearch{};
+        \item Experimental Results: optimal and anytime scenario;
+        \item Conclusion and Future Works;
+    \end{itemize}
 \end{frame}
