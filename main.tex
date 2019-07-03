@@ -10,15 +10,26 @@
 \usepackage{subcaption}
 \usepackage{moresize}
 \usepackage{anyfontsize}
+\usepackage{bm} %use bold in math
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{xcolor}
+\usepackage{cancel} % use xcancel see https://jansoehlke.com/2010/06/strikethrough-in-latex/
 
 \input{src/cmds/commons.tex}
 \input{src/cmds/commands.tex}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CONFIGURATIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%beamer theme
 \usetheme{Frankfurt}
 
-\title{Path Planning with CPD Heuristics}
-%\subtitle{}
+\setbeamertemplate{itemize item}{$\bm{\diamond}$}
 
+\title{Path Planning with CPD Heuristics}
 \author{Massimo Bono$^1$, Alfonso E. Gerevini$^1$, Daniel D. Harabor$^2$ and Peter J.Stuckey$^2$}
 \institute{%
     $^1$\setFontSize{7.8}{Dipartimento di Ingegneria dell'Informazione, Università degli Studi di Brescia, Italy}%
@@ -36,6 +47,10 @@
     {src/tikzs}%
     {src/bibs}%
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DOCUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 
