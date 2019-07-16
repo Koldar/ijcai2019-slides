@@ -16,6 +16,8 @@
 \usepackage[english]{babel}
 \usepackage{xcolor}
 \usepackage{cancel} % use xcancel see https://jansoehlke.com/2010/06/strikethrough-in-latex/
+\usepackage{changepage} % https://tex.stackexchange.com/a/160827/145331
+\usepackage{makecell} % https://tex.stackexchange.com/a/11694/145331
 
 \input{src/cmds/commons.tex}
 \input{src/cmds/commands.tex}
@@ -42,12 +44,20 @@
 %\date{\today}
 \date{August 15, 2019}
 
-\setInputPath{%
-    {src/texs}%
-    {src/images}%
-    {src/tikzs}%
-    {src/bibs}%
+\newcommand{\addToInputPath}[1]{%
+    \makeatletter
+    \providecommand*{\input@path}{}
+    \g@addto@macro\input@path{#1}% append
+    \input@path
+    \makeatother
 }
+
+% \addToInputPath{%
+%     {src/texs}%
+%     {src/images}%
+%     {src/tikzs}%
+%     {src/bibs}%
+% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DOCUMENT

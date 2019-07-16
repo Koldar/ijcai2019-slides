@@ -4,13 +4,6 @@
 
 \makeatletter
 
-% add input source files
-% set the input path.
-% EXAMPLE \setInputPath{{src/images}{src/tikzs}}
-\NewDocumentCommand{\setInputPath}{m}{%
-    \def\input@path{#1}%
-}
-
 \NewDocumentCommand{\setFontSize}{m o m}{%
     \IfNoValueF{#2}{%
         \fontsize{#1}{#2}\selectfont#3%
@@ -19,6 +12,14 @@
         \MULTIPLY{#1}{1.2}{\setFont@baseline}%
         \fontsize{#1}{\setFont@baseline}\selectfont#3%
     }%
+}
+
+\NewDocumentCommand{\todo}{m}{%
+    {\color{blue} #1}%
+}
+
+\NewDocumentCommand{\code}{m}{%
+    \texttt{#1}%
 }
 
 \makeatother

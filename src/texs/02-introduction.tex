@@ -52,7 +52,7 @@
             \path (v11) edge[->,bend left,line width=2pt] node[below]{3} (v12);
             \path (v12) edge[->,bend left] node[above]{} (v11);
     
-            \path (v00) edge[->,bend left] node[left]{2} (v10);
+            \path (v00) edge[->,bend left] node[left]{3} (v10);
             \path (v10) edge[->,bend left] node[right]{} (v00);
 
             \path (v10) edge[->,bend left] node[left]{1} (v20);
@@ -74,7 +74,7 @@
     \end{minipage}%
     \begin{minipage}{0.45\textwidth}
         \begin{center}
-            \textbf{''Perturbated`` Map}\\
+            \textbf{``Perturbated'' Map}\\
         \end{center}
         \begin{tikzpicture}
             \tikzset{Vertex/.style={%
@@ -107,7 +107,7 @@
             \path (v11) edge[->,bend left] node[below]{3} (v12);
             \path (v12) edge[->,bend left] node[above]{} (v11);
     
-            \path (v00) edge[->,bend left] node[left]{2} (v10);
+            \path (v00) edge[->,bend left] node[left]{3} (v10);
             \path (v10) edge[->,bend left] node[right]{} (v00);
 
             \path (v10) edge[->,bend left] node[left]{1} (v20);
@@ -134,7 +134,11 @@
             \item \ALT{}, \AWA{};
         \end{itemize}
         \item Proposed Techniques: \CPDSearch{} and \anytimeCPDSearch{};
-        \item Experimental Results: optimal and anytime scenario;
+        \item Experimental Results: 
+            \begin{itemize}
+                \item optimal and 
+                \item anytime scenario;
+            \end{itemize}
         \item Conclusion and Future Works;
     \end{itemize}
 \end{frame}
