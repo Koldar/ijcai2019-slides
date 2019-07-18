@@ -1,7 +1,29 @@
 \section*{Proposed Techniques}
 
-\begin{frame}{\CPDSearch{} (1)}
+\begin{frame}{Proposed technique: \CPDSearch{}}
+    \begin{block}{Idea}
+        Use \CPD{} of original map (\textit{offline}) to agument search on new map (\textit{online})
+    \end{block}
+    
+    Given node pair $(s, t)$:
+    \begin{itemize}
+        \item \CPD{} generated path on original map acts as an \textbf{admissible lowerbound}
+        of path cost from $s$ to $t$ on new map;
+        \item \CPD{} paths on new map provides concrete solutions from $s$ to $t$ (assuming new weights $\not = \infty$);
+    \end{itemize}
+
+    \textbf{\CPDSearch{}}. A* variant yielding bounded suboptimal path:
+    \begin{itemize}
+        \item mantain the search node $I$ with the least cost $u = g[I] + h'$, where $h'$ is the cost of path over new map computed by \CPD{} going from $I$ to $t$;
+        \item if $\epsilon f[n] \geq u$, output solution. Path from $n$ to $t$ is computed from querying \CPD{};
+        \item if $\epsilon = 1$, \CPDSearch{} optimal;
+    \end{itemize}
+    
 \end{frame}
 
-\begin{frame}{\CPDSearch{} (2)}
+\begin{frame}{\CPDSearch{} as anytime algorithm}
+    \begin{itemize}
+        \item yield incumbents \CPDSearch{} finds;
+        \item if all new weights $\not = \infty$ or user do not have hard time constraints, \CPDSearch{} immediately has a solution;
+    \end{itemize}
 \end{frame}
