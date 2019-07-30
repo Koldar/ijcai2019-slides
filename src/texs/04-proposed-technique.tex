@@ -2,6 +2,85 @@
 
 \begin{frame}{Proposed technique: \CPDSearch{}}
     \begin{block}{Idea}
+        Exploit the original CPD for the new perturbated map.
+    \end{block}
+
+    \begin{itemize}
+        \item<2-> {\color<3->{gray} Use CPD as a concrete (suboptimal) solution};
+        \item<3-> {\color<4->{gray}use CPD as an admissible heuristic};
+        \item<4-> use CPD for a (early) search termination;
+        \item<5-> use CPD to obtain anytime solution (if weights $\not = \infty$);
+    \end{itemize}
+
+    \only<3>{
+        Given start, target $(s, t)$, since perturbations only increases edge costs, the cost of the shortest path computed by the CPD is a lowerbound of the actual shortest path in the perturbated graph;
+    }%
+    \only<2-3>{
+        \begin{minipage}{0.5\textwidth}
+            \begin{tikzpicture}
+                \tikzset{Vertex/.style={%
+                    shape=circle,%
+                    draw=black,%
+                    minimum size=10pt,%
+                    radius=0.7cm,%
+                    inner sep=1pt,%
+                    node distance=0.9cm,%
+                }}
+            
+                \node[Vertex] (1) {$1$};
+                \node[Vertex, right of=1, fill=red!50] (2) {$2$};
+                \node[Vertex, right of=2] (3) {$3$};
+                \node[Vertex, below of=1] (4) {$4$};
+                \node[Vertex, below of=4] (5) {$5$};
+                \node[Vertex, right of=5, fill=blue!50] (6) {$6$};
+                \node[Vertex, right of=6] (7) {$7$};
+        
+                \path (2) edge[-,line width=1pt] node[above]{\color{black}$a,1$} (1);
+                \path (2) edge[-,line width=1pt] node[above]{\color{black}$b,1$} (3);
+                \path (2) edge[->,line width=1pt, color=red] node[below,sloped,pos=0.4]{{\color{black} $c,$}{\color{red} \xcancel{2}}{\color{black}5}} (4);
+                \path (4) edge[-,line width=1pt] node[above,sloped,pos=0.6]{\color{black}$d,6$} (6);
+                \path (1) edge[-,line width=1pt] node[above,xshift=-13pt,yshift=-6pt]{\color{black}$e,3$} (4);
+                \path (4) edge[->,line width=1pt, color=red] node[above,xshift=-13pt, yshift=-6pt]{\color{black}$f,2$} (5);
+                \path (5) edge[->,line width=1pt, color=red] node[below]{\color{black}$g,2$} (6);
+                \path (6) edge[-,line width=1pt] node[below]{\color{black}$h,1$} (7);
+            \end{tikzpicture}
+        \end{minipage}\hfill%
+        \begin{minipage}{0.5\textwidth}
+            \begin{tikzpicture}
+                \tikzset{Vertex/.style={%
+                    shape=circle,%
+                    draw=black,%
+                    minimum size=10pt,%
+                    radius=0.7cm,%
+                    inner sep=1pt,%
+                    node distance=0.9cm,%
+                }}
+            
+                \node[Vertex] (1) {$1$};
+                \node[Vertex, right of=1, fill=red!50] (2) {$2$};
+                \node[Vertex, right of=2] (3) {$3$};
+                \node[Vertex, below of=1] (4) {$4$};
+                \node[Vertex, below of=4] (5) {$5$};
+                \node[Vertex, right of=5, fill=blue!50] (6) {$6$};
+                \node[Vertex, right of=6] (7) {$7$};
+        
+                \path (2) edge[->,line width=1pt, color=blue] node[above]{\color{black}$a,1$} (1);
+                \path (2) edge[-,line width=1pt] node[above]{\color{black}$b,1$} (3);
+                \path (2) edge[-,line width=1pt] node[below,sloped,pos=0.4]{{\color{black} $c,$}{\color{red} \xcancel{2}}{\color{black}5}} (4);
+                \path (4) edge[-,line width=1pt] node[above,sloped,pos=0.6]{\color{black}$d,6$} (6);
+                \path (1) edge[->,line width=1pt, color=blue] node[above,xshift=-13pt,yshift=-6pt]{\color{black}$e,3$} (4);
+                \path (4) edge[->,line width=1pt, color=blue] node[above,xshift=-13pt, yshift=-6pt]{\color{black}$f,2$} (5);
+                \path (5) edge[->,line width=1pt, color=blue] node[below]{\color{black}$g,2$} (6);
+                \path (6) edge[-,line width=1pt] node[below]{\color{black}$h,1$} (7);
+            \end{tikzpicture}
+        \end{minipage}
+    }%
+
+\end{frame}
+
+
+\begin{frame}{Proposed technique: \CPDSearch{}}
+    \begin{block}{Idea}
         Use \CPD{} of original map (\textit{offline}) to agument search on new map (\textit{online})
     \end{block}
     
