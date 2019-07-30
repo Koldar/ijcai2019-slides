@@ -196,7 +196,9 @@
 
 \begin{frame}{\CPDSearch{} as anytime algorithm}
     \begin{itemize}
-        \item yield incumbents \CPDSearch{} finds;
-        \item if all new weights $\not = \infty$ or user do not have hard time constraints, \CPDSearch{} immediately has a solution;
+        \item each node in openlist represents an actual solution as well (if new weights $\not = \infty$); 
+        \item \CPD{} provides both lowerbound and upperbound of solution;
+        \item Anytime variant obtained by yielding every incumbents $I$ \CPDSearch{} finds;
+        \item Often the first incumbent is calculated from the start node $\Rightarrow$ fast first incumbent;
     \end{itemize}
 \end{frame}
