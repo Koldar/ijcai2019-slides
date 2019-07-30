@@ -179,17 +179,18 @@
             \end{center}
         \end{minipage}
     }
-
 \end{frame}
 
 
 \begin{frame}{Proposed technique: \CPDSearch{}}
     \textbf{\CPDSearch{}}. A* variant yielding bounded suboptimal path:
     \begin{itemize}
-        \item mantain the search node $I$ with the least cost $u = g[I] + h'$, where $h'$ is the cost of path over new map computed by \CPD{} going from $I$ to $t$;
-        \item if $\epsilon f[n] \geq u$, output solution. Path from $n$ to $t$ is computed from querying \CPD{};
-        \item if $\epsilon = 1$, \CPDSearch{} is optimal;
+        \item mantain shortest incumbent path $I$ and its cost $u = g[I] + h'$ ($h'$ = \CPD{} path cost from $I$ to target over perturbated map);
+        \item if $\epsilon f[n] \geq u$, output solution;
+        \item when $\epsilon = 1$, \CPDSearch{} is optimal;
     \end{itemize}
+
+    heuristic used: cost of \CPD{} path;
     
 \end{frame}
 
