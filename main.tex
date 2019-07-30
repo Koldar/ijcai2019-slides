@@ -11,13 +11,31 @@
 \usepackage{moresize}
 \usepackage{anyfontsize}
 \usepackage{bm} %use bold in math
-\usepackage{tikz}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{xcolor}
 \usepackage{cancel} % use xcancel see https://jansoehlke.com/2010/06/strikethrough-in-latex/
 \usepackage{changepage} % https://tex.stackexchange.com/a/160827/145331
 \usepackage{makecell} % https://tex.stackexchange.com/a/11694/145331
+
+\usepackage{tikz}
+\usetikzlibrary{matrix}
+\usetikzlibrary{arrows,automata}
+\tikzset{square matrix/.style={
+        matrix of nodes,
+        column sep=-\pgflinewidth, row sep=-\pgflinewidth,
+        nodes={
+            draw,
+            minimum height=30pt,
+            minimum width=30pt,
+            anchor=center,
+            text width=#1,
+            align=center,
+            inner sep=0pt
+        },
+    },
+    square matrix/.default=0.6cm
+}
 
 \input{src/cmds/commons.tex}
 \input{src/cmds/commands.tex}

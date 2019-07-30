@@ -22,4 +22,13 @@
     \texttt{#1}%
 }
 
+% draw a square.
+% param1: fill color red!50
+% param2: border color (default to black)
+\NewDocumentCommand{\drawFilledSquare}{m O{black}}{%
+    \begin{tikzpicture}%
+        \node [rectangle,draw={#2},fill={#1}] (m) at (0,0) {};%
+    \end{tikzpicture}%
+}
+
 \makeatother
