@@ -3,30 +3,22 @@
 \begin{frame}{Experimental Setup}
     
     \begin{itemize}
-        \item benchmark from moving ai (\todo{add citation});
-        \item policies used to alter original map:
+        \item Benchmark from moving AI;
+        \item policies used to generate perturbations;
             \begin{itemize}
-                \item \code{RANDOM}: randomly choose percentage of edges whose cost is multiplied by 3;
-                \item \code{AREA}: for each query, randomly choose location on optimal path and alter edge-costs in an area with 15 radius by a decaying function ranging from 4 to 1;
+                \item \code{RANDOM}: randomly choose 10\% of edges whose cost is multiplied by 3;
+                \item \code{AREA}: for each query, randomly choose location on optimal path and alter edge-costs in an area with 15 radius by multiplying cost with a decaying function ranging from 4 to 1;
             \end{itemize}
-        \item optimal application;
-        \item anytime application;
+        \item optimal and anytime scenario.
+    \end{itemize}
+    Comparing techniques:
+    \begin{itemize}
+        \item[-] \ALT{}: Search technique using preprocessed \textit{landmarks} to derive admissible heuristic for any node pair $(s, t)$;
+        \item[-] \AWA{}: \WA{} anytime variant iteratively computing suboptimal solutions while updating in the tightest possible way the suboptimality bound;
     \end{itemize}
 \end{frame}
 
-\begin{frame}{\ALT{} and Anytime Weighted A* (\AWA{})}
-    \textbf{\ALT{}:}
-    \begin{itemize}
-        \item Search technique using preprocessed \textit{landmarks} to derive admissible
-            estimates of node pair $(s, t)$;
-    \end{itemize}
-    \textbf{\AWA{}:}
-    \begin{itemize}
-        \item \WA{} anytime variant iteratively computing suboptimal solutions while updating in the tightest possible way the suboptimality bound;
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Optimal Application}
+\begin{frame}{Optimal Scenario}
     \begin{adjustwidth}{-2.5em}{-2.5em}
         \begin{minipage}{0.59\textwidth}
             \begin{figure}
@@ -45,10 +37,14 @@
     \end{adjustwidth}
 \end{frame}
 
-\begin{frame}{Anytime Application}
-    \begin{figure}
-        \centering
-        \includegraphics[width=1.0\textwidth]{src/images/anytime/anytime01}
-        \label{fig:anytime01}
-    \end{figure}
+\begin{frame}{Anytime Scenario}
+
+    In \code{hrt201n} map (almost 1200 queries):
+
+    \begin{itemize}
+        \item by 30$\mu$s \anytimeCPDSearch{} has incumbents for at least 25\% of instances, \AWA{} for almost none;
+        \item by 300$\mu$ \anytimeCPDSearch{} has incumbents for at least 75\% of instances, \AWA{} for at least 25\%;
+        \item by 1ms \anytimeCPDSearch{} has incumbents for all instances and has computed the optimal path for at least 25\% of instances, \AWA{} has optimal paths for no instance;
+        \item by 10ms \anytimeCPDSearch{} has reached the optimal solution for every instance, while \AWA{} has computed it for at least 25\%.
+    \end{itemize}
 \end{frame}
