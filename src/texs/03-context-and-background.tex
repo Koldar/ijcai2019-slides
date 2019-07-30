@@ -17,6 +17,13 @@
 \end{frame}
 
 \begin{frame}{Compressed Path Database (\CPD{})}
+    
+    \begin{block}{}
+       Given a graph, a CPD is a data structure that efficiently stores the first edge of an optimal path from any node $s$ towards any node $t$.
+    \end{block}
+
+    \medskip
+
     \begin{minipage}{0.33\textwidth}
         \begin{tikzpicture}
             \tikzset{Vertex/.style={%
@@ -25,45 +32,137 @@
                     minimum size=10pt,%
                     radius=1cm,%
                     inner sep=3pt,%
-                    node distance=1.7cm,%
+                    node distance=1.3cm,%
                 }}
         
-                \node[Vertex] (3) at (0,0) {$3$};
-                \node[Vertex] (2) at (+45:2) {$2$};
-                \node[Vertex] (1) at (+135:2) {$1$};
-                \node[Vertex] (4) at (-45:2) {$4$};
-                \node[Vertex] (5) at (-135:2) {$5$};
-                
+                \node[Vertex] (1) {$1$};
+                \node[Vertex, right of=1] (2) {$2$};
+                \node[Vertex, right of=2] (3) {$3$};
+                \node[Vertex, below of=1] (4) {$4$};
+                \node[Vertex, below of=4] (5) {$5$};
+                \node[Vertex, right of=5] (6) {$6$};
+                \node[Vertex, right of=6] (7) {$7$};
         
-                \path (1) edge[-,line width=1pt] node[above]{$a,2$} (2);
-                \path (2) edge[-,line width=1pt] node[left,xshift=+3pt]{$f,4$} (4);
-                \path (3) edge[-,line width=1pt] node[below,xshift=-5pt]{$b,5$} (1);
-                \path (3) edge[-,line width=1pt] node[above,xshift=-5pt]{$e,3$} (2);
-                \path (3) edge[-,line width=1pt] node[below,xshift=-5pt]{$d,6$} (4);
-                \path (3) edge[-,line width=1pt] node[above,xshift=-5pt]{$c,3$} (5);
+                \path (1) edge[-,line width=1pt] node[above]{$a,1$} (2);
+                \path (2) edge[-,line width=1pt] node[above]{$b,1$} (3);
+                \path (4) edge[-,line width=1pt] node[above,sloped]{$c,2$} (2);
+                \path (4) edge[-,line width=1pt] node[above,sloped]{$d,6$} (6);
+                \path (4) edge[-,line width=1pt] node[above,xshift=-13pt,yshift=-6pt]{$e,3$} (1);
+                \path (4) edge[-,line width=1pt] node[above,xshift=-13pt, yshift=-6pt]{$f,2$} (5);
+                \path (5) edge[-,line width=1pt] node[below]{$g,2$} (6);
+                \path (6) edge[-,line width=1pt] node[below]{$h,1$} (7);
         \end{tikzpicture}
     \end{minipage}\hfill%
-    \begin{minipage}{0.33\textwidth}
-        % see https://tex.stackexchange.com/a/317083/145331
-        \begin{table}
-            \centering
-            \begin{tabular}{l|ccccc}
-            \diaghead(5,-3){\theadfont xx}{\hphantom{x}\hphantom{x}t}{s\hphantom{x}\hphantom{x}} 
-                & 1 & 2 & 3 & 4 & 5 \\ \hline
-                1 & - & $a$ & $a$ & $a$ & $a$ \\
-                2 & $a$ & - & $e$ & $f$ & $e$ \\
-                3 & $e$ & $e$ & - & $d$ & $c$ \\
-                4 & $f$ & $f$ & - & $d$ & $d$ \\
-                5 & $c$ & $c$ & $c$ & $c$ & - \\
-            \end{tabular}
-        \end{table}
-    \end{minipage}\hfill%
-    \begin{minipage}{0.33\textwidth}
-        $$(s,t) = (1, 5)$$
-        $$M[1, 5] = a$$
-        $$M[2, 5] = e$$
-        $$M[3, 5] = c$$
-        $$1 \rightarrow 2 \rightarrow 3 \rightarrow 5$$
+    \begin{minipage}{0.50\textwidth}
+        \begin{center}
+            $(s,t) = (2, 6)$
+
+            \medskip
+
+            \begin{minipage}{1.0\textwidth}
+                \begin{minipage}{0.5\textwidth}
+                    \begin{tikzpicture}
+                        \tikzset{Vertex/.style={%
+                                shape=circle,%
+                                draw=black,%
+                                minimum size=10pt,%
+                                inner sep=0pt,%
+                                node distance=0.5cm,%
+                            }}
+                    
+                            \node[Vertex] (1) {$1$};
+                            \node[Vertex, fill=red!50, right of=1] (2) {$2$};
+                            \node[Vertex, right of=2] (3) {$3$};
+                            \node[Vertex, below of=1] (4) {$4$};
+                            \node[Vertex, below of=4] (5) {$5$};
+                            \node[Vertex, fill=blue!50, right of=5] (6) {$6$};
+                            \node[Vertex, right of=6] (7) {$7$};
+                    
+                            \path (1) edge[-,line width=1pt] (2);
+                            \path (2) edge[-,line width=1pt] (3);
+                            \path (4) edge[-,line width=1pt] node[xshift=3pt, yshift=3pt, below]{$c$} (2);
+                            \path (4) edge[-,line width=1pt] (6);
+                            \path (4) edge[-,line width=1pt] (1);
+                            \path (4) edge[-,line width=1pt] (5);
+                            \path (5) edge[-,line width=1pt] (6);
+                            \path (6) edge[-,line width=1pt] (7);
+                    \end{tikzpicture}
+                \end{minipage}\hfill%
+                \begin{minipage}{0.5\textwidth}
+                    $CPD[2,6] = c$
+                \end{minipage}
+
+                \medskip
+
+                \begin{minipage}{0.5\textwidth}
+                    \begin{tikzpicture}
+                        \tikzset{Vertex/.style={%
+                                shape=circle,%
+                                draw=black,%
+                                minimum size=10pt,%
+                                inner sep=0pt,%
+                                node distance=0.5cm,%
+                            }}
+                    
+                            \node[Vertex] (1) {$1$};
+                            \node[Vertex, right of=1] (2) {$2$};
+                            \node[Vertex, right of=2] (3) {$3$};
+                            \node[Vertex, fill=red!50, below of=1] (4) {$4$};
+                            \node[Vertex, below of=4] (5) {$5$};
+                            \node[Vertex, fill=blue!50, right of=5] (6) {$6$};
+                            \node[Vertex, right of=6] (7) {$7$};
+                    
+                            \path (1) edge[-,line width=1pt] (2);
+                            \path (2) edge[-,line width=1pt] (3);
+                            \path (4) edge[-,line width=1pt] (2);
+                            \path (4) edge[-,line width=1pt] (6);
+                            \path (4) edge[-,line width=1pt] (1);
+                            \path (4) edge[-,line width=1pt] node[xshift=-8pt]{$f$} (5);
+                            \path (5) edge[-,line width=1pt] (6);
+                            \path (6) edge[-,line width=1pt] (7);
+                    \end{tikzpicture}
+                \end{minipage}\hfill%
+                \begin{minipage}{0.5\textwidth}
+                    $CPD[4,6] = f$
+                \end{minipage}
+
+                \medskip
+
+                \begin{minipage}{0.5\textwidth}
+                    \begin{tikzpicture}
+                        \tikzset{Vertex/.style={%
+                                shape=circle,%
+                                draw=black,%
+                                minimum size=10pt,%
+                                inner sep=0pt,%
+                                node distance=0.5cm,%
+                            }}
+                    
+                            \node[Vertex] (1) {$1$};
+                            \node[Vertex, right of=1] (2) {$2$};
+                            \node[Vertex, right of=2] (3) {$3$};
+                            \node[Vertex, below of=1] (4) {$4$};
+                            \node[Vertex, fill=red!50, below of=4] (5) {$5$};
+                            \node[Vertex, fill=blue!50, right of=5] (6) {$6$};
+                            \node[Vertex, right of=6] (7) {$7$};
+                    
+                            \path (1) edge[-,line width=1pt] (2);
+                            \path (2) edge[-,line width=1pt] (3);
+                            \path (4) edge[-,line width=1pt] (2);
+                            \path (4) edge[-,line width=1pt] (6);
+                            \path (4) edge[-,line width=1pt] (1);
+                            \path (4) edge[-,line width=1pt] (5);
+                            \path (5) edge[-,line width=1pt] node[yshift=-8pt]{$g$} (6);
+                            \path (6) edge[-,line width=1pt] (7);
+                    \end{tikzpicture}
+                \end{minipage}\hfill%
+                \begin{minipage}{0.5\textwidth}
+                    $CPD[5,6] = g$
+                \end{minipage}
+            \end{minipage}
+
+        \end{center}
+        
     \end{minipage}
 
 \end{frame}
