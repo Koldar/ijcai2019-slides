@@ -2,18 +2,17 @@
 
 \begin{frame}{Introduction}
     \begin{itemize}
-        \item 
-        \item In single agent shortest path problem, modern algorithms usually assume static edge-costs
+        \item Single-agent shortest path planning: given a graph, compute a path from a start node $s$ to a goal $t$ whose cost is minimum;
+        \item Modern algorithms use auxiliary data structures to improve performances
         
         \begin{center}
-            but
+            however
         \end{center}
         
-        how to efficiently compute paths over graphs altered with non-decreasing edge-cost changes?
+        When \textbf{edge costs are dynamic} such algorithms may fail due to invalid auxiliary data.
 
-        \item \textbf{Goal}: design single agent path finding solutions exploiting original map information to compute paths over
-            altered map;
-        \item \textbf{Results}: developed new bounded, optimal and anytime A* variants whose experimentally-evaluated performances show substantial gains over previous algorithms.
+        \item \textbf{Goal}: Solve dynamic-cost single agent path planning problems by exploiting Compressed Path Database (CPD);
+        \item \textbf{Results}: developed new bounded, optimal and anytime A* variants using CPD whose experimentally-evaluated performances show substantial gains over previous algorithms.
     \end{itemize}
 \end{frame}
 
