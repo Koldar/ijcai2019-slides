@@ -1,8 +1,8 @@
 \section*{Proposed Techniques}
 
 \begin{frame}{Proposed technique: \CPDSearch{}}
-    \begin{block}{Idea}
-        \A{} variant yielding bounded suboptimal solutions where \CPDPath{} is exploited for online searching the perturbated map.
+    \begin{block}{\CPDSearch{}}
+        \A{} variant yielding bounded suboptimal solutions where \CPDPathsName{} are exploited for searching the perturbated map.
     \end{block}
 
     $s$, $t$ : start and target of path finding instance;
@@ -11,17 +11,19 @@
 
     \begin{block}{}
         \begin{itemize}
-            \item[-] $\CPDPath{}[n \rightarrow t]$: path from $n$ to $t$ generated from \CPD{} computed with \textbf{original} weights;
-            \item[-] $\CPDPathNew{}[n \rightarrow t]$: path from $n$ to $t$ generated from \CPD{} computed with \textbf{perturbated} weights;
+            \item[-] $\CPDPathCostOriginal{n}{t}$: cost of \CPDPathName{} from $n$ to $t$ using the \textbf{original} weights;
+            \item[-] $\CPDPathCostNew{n}{t}$: cost of \CPDPathName{} from $n$ to $t$ using the \textbf{perturbated} weights;
         \end{itemize} 
     \end{block}
 
-    cost of a path identified by $cost(\cdot)$;
+    \begin{coloredBlock}{Property}[OliveGreen][white]
+        Each node $n$ has \textbf{implicitly} associated a \CPDPath{$n$}{$t$}.
+    \end{coloredBlock}
 \end{frame}
 
 \begin{frame}{Proposed technique: \CPDSearch{}}
-    \begin{block}{Idea}
-        \A{} variant yielding bounded suboptimal solutions where \CPDPath{} is exploited for online searching the perturbated map.
+    \begin{block}{\CPDSearch{}}
+        \A{} variant yielding bounded suboptimal solutions where \CPDPathsName{} are exploited for searching the perturbated map.
     \end{block}
 
     \begin{itemize}
@@ -30,17 +32,17 @@
 
     \begin{minipage}{0.65\textwidth}
         \begin{center}
-        Perturbations only increases edge costs 
-        
-        $\downarrow$ 
-        
-        $cost(\CPDPath{}[n \rightarrow t])$ is an admissible heuristic;
+            Perturbations only increases edge costs 
+            
+            $\downarrow$ 
+            
+            $\CPDPathCostOriginal{n}{t}$ is an admissible heuristic;
 
-        \medskip
+            \medskip
 
-        $cost(\CPDPath{}[2 \rightarrow 6]) = 6$
+            $\CPDPathCostOriginal{2}{6} = 6$
 
-        $cost(\CPDPathNew{}[2 \rightarrow 6]) = 9$
+            $\CPDPathCostNew{2}{6} = 9$
         \end{center}
     \end{minipage}\hfill%
     \begin{minipage}{0.35\textwidth}
@@ -53,6 +55,13 @@
                 inner sep=1pt,%
                 node distance=0.9cm,%
             }}
+            \tikzset{Note/.style={%
+                shape=rectangle,%
+                draw=black,%
+                minimum size=10pt,%
+                inner sep=1pt,%
+                node distance=0.9cm,%
+            }}
         
             \node[Vertex] (1) {$1$};
             \node[Vertex, right of=1, fill=yellow!50] (2) {$2$};
@@ -61,6 +70,12 @@
             \node[Vertex, below of=4] (5) {$5$};
             \node[Vertex, right of=5, fill=blue!50] (6) {$6$};
             \node[Vertex, right of=6] (7) {$7$};
+
+            \node[Note, above of=2, fill=yellow!50] (n) {$n$};
+            \node[Note, below of=6, fill=blue!50] (target) {Target};
+
+            \path (2) edge[-., dashed] (n);
+            \path (6) edge[-., dashed] (target);
     
             \path (2) edge[-,line width=1pt] node[above]{\color{black}$a,1$} (1);
             \path (2) edge[-,line width=1pt] node[above]{\color{black}$b,1$} (3);
@@ -76,8 +91,8 @@
 \end{frame}
 
 \begin{frame}{Proposed technique: \CPDSearch{}}
-    \begin{block}{Idea}
-        \A{} variant yielding bounded suboptimal solutions where \CPDPath{} is exploited for online searching the perturbated map.
+    \begin{block}{\CPDSearch{}}
+        \A{} variant yielding bounded suboptimal solutions where \CPDPathsName{} are exploited for searching the perturbated map.
     \end{block}
 
     \begin{itemize}
@@ -88,19 +103,19 @@
     \begin{minipage}{0.65\textwidth}
 
         \begin{center}
-            if $cost(\CPDPathNew{}[n \rightarrow t]) = cost(\CPDPath{}[n \rightarrow t])$
+            if $\CPDPathCostNew{n}{t} = \CPDPathCostOriginal{n}{t}$
             
             $\downarrow$
             
-            optimal solution is $path[s \rightarrow n] \doublePlus{} \CPDPath{}[n \rightarrow t]$;
+            optimal solution is $\pathOnGraph{s}{n} \doublePlus{} \CPDPath{n}{t}$;
 
             \medskip
 
             $(s, t) = (2, 6)$
         
-            $cost(\CPDPath{}[4 \rightarrow 6]) = 4$
+            $\CPDPathCostOriginal{4}{6} = 4$
 
-            $cost(\CPDPathNew{}[4 \rightarrow 6]) = 4$
+            $\CPDPathCostNew{4}{6} = 4$
         \end{center}
     \end{minipage}\hfill%
     \begin{minipage}{0.35\textwidth}
@@ -136,8 +151,8 @@
 \end{frame}
 
 \begin{frame}{Proposed technique: \CPDSearch{}}
-    \begin{block}{Idea}
-        \A{} variant yielding bounded suboptimal solutions where \CPDPath{} is exploited for online searching the perturbated map.
+    \begin{block}{\CPDSearch{}}
+        \A{} variant yielding bounded suboptimal solutions where \CPDPathsName{} are exploited for searching the perturbated map.
     \end{block}
 
     \begin{itemize}
@@ -146,16 +161,15 @@
         \item {use \CPD{} to obtain solution bounds;}
     \end{itemize}
 
-    Given source $s$, target $t$ and search node $n$: 
     \begin{itemize}
-        \item[-] $cost(path[s \rightarrow n] \doublePlus{} \CPDPath{}[n \rightarrow t])$: lowerbound of solution;
-        \item[-] $cost(path[s \rightarrow n] \doublePlus{} \CPDPathNew{}[n \rightarrow t])$: upperbound of solution;
+        \item[-] $\pathOnGraph{s}{n} \doublePlus{} \CPDPathCostOriginal{n}{t}$: \textbf{lowerbound} of solution;
+        \item[-] $\pathOnGraph{s}{n} \doublePlus{} \CPDPathCostNew{n}{t}$: \textbf{upperbound} of solution;
     \end{itemize}
 
     \begin{block}{}
         \begin{itemize}
             \item \CPDSearch{} maintains the best solution found and solution bounds (allows usage in anytime search);
-            \item Threshold $\epsilon$ used for setting \CPDSearch{} solution quality (we focus on $\epsilon = 1 \rightarrow $ optimality);
+            \item Threshold $\epsilon$ used for setting \CPDSearch{} solution quality (in this talk $\epsilon = 1 \rightarrow $ optimality);
         \end{itemize}
     \end{block}
 
