@@ -43,4 +43,15 @@
     w.r.t.%
 }
 
+\NewDocumentEnvironment{coloredBlock}{m O{blue} O{white}}{%
+\setbeamercolor{block title}{bg=#2, fg=#3}
+    \begin{block}{#1}%
+}{%
+    \end{block}%
+}
+
+\NewDocumentCommand{\doublePlus}{}{%
+    \ifmmode{+\!\!+}\else{$+\!\!+$}\fi%
+}
+
 \makeatother

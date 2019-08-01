@@ -51,14 +51,14 @@
                 \path (4) edge[-,line width=1pt] node[above,xshift=-13pt, yshift=-6pt]{$f,2$} (5);
                 \path (5) edge[-,line width=1pt] node[below]{$g,2$} (6);
                 \path (6) edge[-,line width=1pt] node[below]{$h,1$} (7);
-        \end{tikzpicture}
+        \end{tikzpicture}%
+        \begin{center}%
+            \vspace{-12pt}%
+            $(s,t) = (2, 6)$%
+        \end{center}
     \end{minipage}\hfill%
     \begin{minipage}{0.50\textwidth}
         \begin{center}
-            $(s,t) = (2, 6)$
-
-            \medskip
-
             \begin{minipage}{1.0\textwidth}
                 \begin{minipage}{0.5\textwidth}
                     \begin{tikzpicture}
@@ -92,8 +92,6 @@
                     $CPD[2,6] = c$
                 \end{minipage}
 
-                \medskip
-
                 \begin{minipage}{0.5\textwidth}
                     \begin{tikzpicture}
                         \tikzset{Vertex/.style={%
@@ -125,8 +123,6 @@
                 \begin{minipage}{0.5\textwidth}
                     $CPD[4,6] = f$
                 \end{minipage}
-
-                \medskip
 
                 \begin{minipage}{0.5\textwidth}
                     \begin{tikzpicture}
@@ -161,8 +157,10 @@
                 \end{minipage}
             \end{minipage}
 
-        \end{center}
-        
+        \end{center}     
     \end{minipage}
+    \begin{coloredBlock}{Property}[OliveGreen][white]
+        With \CPD{}, given a graph and a target node $t$, any node $n$ has \textbf{implicitly} associated an optimal path to $t$ ($\CPDPath{}[n \rightarrow t]$)
+    \end{coloredBlock}
 
 \end{frame}
