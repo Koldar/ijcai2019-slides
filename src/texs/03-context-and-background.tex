@@ -17,11 +17,12 @@
 \end{frame}
 
 \begin{frame}{Compressed Path Database (\CPD{}) [Strasser 2014 + others]}
-    \vspace{-6pt}
+    \vspace{-8pt}
     \begin{block}{}
        Given a graph, a CPD is a data structure that efficiently stores the first edge of an optimal path from any node $s$ towards any node $t$.
     \end{block}
 
+    \vspace{-2pt}
     \begin{minipage}{0.33\textwidth}
         \begin{tikzpicture}
             \tikzset{Vertex/.style={%
@@ -51,7 +52,7 @@
                 \path (6) edge[-,line width=1pt] node[below]{$h,1$} (7);
         \end{tikzpicture}%
         \begin{center}%
-            \vspace{-12pt}%
+            \vspace{-13pt}%
             $(s,t) = (2, 6)$%
         \end{center}
     \end{minipage}\hfill%
@@ -158,10 +159,10 @@
         \end{center}     
     \end{minipage}
 
-    \vspace{-5pt}
+    \vspace{-9pt}
     \begin{coloredBlock}{\CPDPathName{}}[OliveGreen][white]
-        Given a graph $G$, the \CPD{} associated to $G$, a source node $s$ and target node $t$, 
-        the $\CPDPath{s}{t}$ is the path starting in $s$ and obtained by applying $\CPD{}[s, t]$ and recursively call and ending in $t$ s.t. $\pi(i) = [ (v_i, \CPD{}[v_i, t]) ]$.
+        Given a graph $G$ and its \CPD{}, source node $s$ and target node $t$, 
+        $\CPDPath{s}{t}$ is the path obtained by concatenating edge $\CPD{}[s, t]$ with $\CPDPath{sink(\CPD{}[s, t])}{t}$ if $s \not = t$; the empty path otherwise.
     \end{coloredBlock}
 
 \end{frame}
