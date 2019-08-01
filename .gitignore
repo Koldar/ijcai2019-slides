@@ -5,6 +5,7 @@ build/
 ./*.pdf
 ./*.aux
 ./*.log
+*-eps-converted-to.pdf
 
 #LATEX
 
