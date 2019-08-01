@@ -161,7 +161,7 @@
     \vspace{-5pt}
     \begin{coloredBlock}{\CPDPathName{}}[OliveGreen][white]
         Given a graph $G$, the \CPD{} associated to $G$, a source node $s$ and target node $t$, 
-        the $\CPDPath{s}{t}$ is the path $\pi$ starting in $s$ and ending in $t$ s.t. each $(v_i, v_{i+1}) \in \pi = \CPD{}[v_i, t]$.
+        the $\CPDPath{s}{t}$ is the path starting in $s$ and obtained by applying $\CPD{}[s, t]$ and recursively call and ending in $t$ s.t. $\pi(i) = [ (v_i, \CPD{}[v_i, t]) ]$.
     \end{coloredBlock}
 
 \end{frame}

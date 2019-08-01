@@ -5,6 +5,8 @@
         \item Single-agent shortest path planning: given a graph, compute a path from a start node $s$ to a goal $t$ whose cost is minimum;
         \item Modern algorithms use auxiliary data structures to improve performances;
         \item However, when \textbf{edge costs are dynamic} such algorithms may fail due to invalid auxiliary data.
+        
+        \medskip
 
         \item \textbf{Goal}: Solve dynamic-cost single agent path planning problems by exploiting Compressed Path Database (CPD);
         \item \textbf{Results}: new bounded A* variant using CPD whose experimentally-evaluated performances show substantial gains over previous algorithms.
@@ -248,12 +250,12 @@
             \item Compress Path Database (\CPD{});
             \item \ALT{}, \AWA{};
         \end{itemize}
-        \item Proposed Techniques: \CPDSearch{} and \anytimeCPDSearch{};
+        \item Proposed Technique: \CPDSearch{};
         \item Experimental Results: 
             \begin{itemize}
                 \item optimal and 
                 \item anytime scenario;
             \end{itemize}
-        \item Conclusion and Future Work;
+        \item Conclusion and Future Work.
     \end{itemize}
 \end{frame}
