@@ -128,6 +128,13 @@
                 inner sep=1pt,%
                 node distance=0.9cm,%
             }}
+            \tikzset{Note/.style={%
+                shape=rectangle,%
+                draw=black,%
+                minimum size=10pt,%
+                inner sep=1pt,%
+                node distance=0.9cm,%
+            }}
         
             \node[Vertex] (1) {$1$};
             \node[Vertex, right of=1, fill=red!50] (2) {$2$};
@@ -136,6 +143,14 @@
             \node[Vertex, below of=4] (5) {$5$};
             \node[Vertex, right of=5, fill=blue!50] (6) {$6$};
             \node[Vertex, right of=6] (7) {$7$};
+
+            \node[Note, above of=2, fill=red!50] (start) {Start};
+            \node[Note, left of=4, fill=yellow!50] (n) {$n$};
+            \node[Note, below of=6, fill=blue!50] (target) {Target};
+
+            \path (2) edge[-., dashed] (start);
+            \path (4) edge[-., dashed] (n);
+            \path (6) edge[-., dashed] (target);
     
             \path (2) edge[-,line width=1pt] node[above]{\color{black}$a,1$} (1);
             \path (2) edge[-,line width=1pt] node[above]{\color{black}$b,1$} (3);
