@@ -62,7 +62,7 @@ Then we query the CPD again but this time we ask which is the "edge" we need to 
 We keep performing this pair of querying CPD and applying the output edge until we reach the goal. By concatenating all the output edges it is possible to obtain an optimal path from the starting node till the target. 
 In the example, the obtained path is 2,4,5 and 6.
 
-We call such optimal path CPD path, or, more formally:
+We call such **optimal** path CPD path, or, more formally:
 
 Given a graph G and its CPD, a source node s and target t, the cpd path from s to t is the path obtained by **recursively** contatenating the edge obtained from CPD of s and t with the cpd path from the sink of such edge and the same target. The cpd path is empty if s and t are the same. 
 
@@ -70,20 +70,44 @@ Given a graph G and its CPD, a source node s and target t, the cpd path from s t
 
 I will now explain the underlying ideas of our technique, CPD search.
 
-CPD search is A* variant which computes bounded suboptimal solutions. To do so, the CPD paths are exploited in several way to improve the runtime search on the perturbated map.
+CPD search is A* variant which computes bounded suboptimal solutions. To do so, the CPD paths, which can be retrieved using the **preprocess CPD**, are exploited in several ways to improve the **runtime** search on the perturbated map.
 
-One important property is that each A* search node $n$ (holding the location inside the map) has **implicitly** associated a cpd path which allows to optimally reach, form the given node location, the target node t in the map without perturbations:
+One important property is that each A* search node $n$ (holding the location inside the map) has **implicitly** associated a cpd path which allows to optimally reach the target node t in the map with no perturbations:
 
- We will use h CPD n to refer to the cost of such path 
-
+We will use h CPD n to refer to the cost of such path using the original weights (namely without perturbations) while h prime CPD will refer to the cost of the same path but using the perturbated weights.
 
 # Cpd-Search (2)
 
+We firstly use the CPD to derive an admissible heuristic. Since perturbations can only increase the original edge-cost, h CPD of n (which is the cost of an optimal path on the **original** map) never overestimates the cost of the optimal path on the perturbated map, thus can be used as an admissible heuristic.
+
+As an example, consider the given graph where we want to find the optimal path from 2 to 6: 
+the involved search node is $n$ and its cpd path is the red one. the cost of the optimal solution is 8 (by going through nodes 1, 4, 5 and 6) while h cpd of $n$ is 6 (following red path using the **original** weights);
+
 # Cpd-Search (3)
+
+CPD paths can be used to early terminate the search as well. If the algorithm reaches a search node $n$ whose cpd path do not involve any perturbated edges (thus h prime cpd of n is the same of h cpd of n) then the cpd path is already an optimal path from n to the target node in the perturbated map as well. Hence we can obtain the optimal path on the perturbated map from start node to target node by concatenating the path from node start to n with the cpd path from n to the target.
 
 # Cpd-Search (4)
 
+Lastly, we can exploit CPD to define both lowerbound and upperbound of the optimal solution over the perturbated map.
+
+In particular given a search node $n$, since perturbations always increase the edge costs, the cost of the path on the **perturbated** map from s to n plus the cost of the cpd path using **original** weights from n to t yields a **lowerbound** of the solution.
+
+Furthermore, the cost of the path on the **perturbated** map from s to n plus the cost of the cpd path using **perturbated** weights from n to t yield an **upperbound** of the solution. 
+
+By mantaining those 2 bounds and the best solution found (obtained by concatenating the path over perturbated map from start to n with the cpd path from n to t) it is possible to derive a bounded suboptimal algorithm. The bound quality can be set wth user-defined threshold epsilon. When such threshold is set to 1, CPD search yields the optimal path. Furthermore, CPD search can be used in anytime search by outputting the best solution found so far.
+
 # Experimental Setup
+
+OK, to test CPD Search, we used the benchmarks from Moving AI. 
+
+The perturbations over the maps have been generated in 2 ways:
+
+- One, named RANDOM, where we randomly choose 10 percent of edges whose cost is then multiplied by a factor of 3;
+
+- Two, called AREA, where we choose a location on the optimal path of a query and alter all the edges within a radius of 15 from the chosen location. Each edge cost is multiplied by a decaying function ranging from 4 to 1.
+
+We tested CPD search in an optimal and in an anytime scenario: in the first we compared the algorithm against ALT, a popular technique using preprocessing where exploiting a limited set of nodes named landmarks to derive admissible heuristic for any node pair
 
 # Optimal Scenario
 
@@ -91,3 +115,7 @@ One important property is that each A* search node $n$ (holding the location ins
 
 # Conclusion and future works
 
+
+
+ridurre abstract ma non eliminare. ridurlo per fare spazio al contesto.
+frase che illustra un risultato di effetto in anytime.
