@@ -103,19 +103,48 @@ OK, to test CPD Search, we used the benchmarks from Moving AI.
 
 The perturbations over the maps have been generated in 2 ways:
 
-- One, named RANDOM, where we randomly choose 10 percent of edges whose cost is then multiplied by a factor of 3;
+- One, named RANDOM, where we randomly choose 10 percent of edges whose cost is tripled;
 
-- Two, called AREA, where we choose a location on the optimal path of a query and alter all the edges within a radius of 15 from the chosen location. Each edge cost is multiplied by a decaying function ranging from 4 to 1.
+- Two, called AREA, where, given a path planning query, we choose a location on the optimal path and alter all the edges within a radius of 15 from the chosen location. Each edge cost is multiplied by a decaying function ranging from 4 to 1.
 
-We tested CPD search in an optimal and in an anytime scenario: in the first we compared the algorithm against ALT, a popular technique using preprocessing where exploiting a limited set of nodes named landmarks to derive admissible heuristic for any node pair
+We tested CPD search in an optimal and in an anytime scenario: 
+
+in the first we compared the algorithm against ALT, a popular technique using preprocessing which exploits a limited set of nodes named landmarks to derive an admissible heuristic for any node pair. In this algorithm it's sensitive the number of landmarks to use, since more landmarks produce more accurate estimates at expenses of a greater online time cost and preprocess space.
+
+In the anytime scenario we compared CPD search against AWA: this algorithm is a WA* variant which seeks a suboptimal solution with the tighest possible suboptimality bound. The heuristic used is the landmark heuristic. 
 
 # Optimal Scenario
 
+In the optimal scenario we used the AREA policy to generate perturbations.
+The figures here showcases a performance comparison between our approach and ALT using 6, 12 and 18 landmarks to find optimal solutions. The figures contain cactus plots comparing performance in terms of CPU time used to optimally solve the number of instances on the x axis. Note that the instances are independently ordered, for every algorithm, from the easisest one to the hardest one relative to the algorithm involved. 
+
+Generally speaking, except for very simple queries, CPD Search works better than ALT, even when the perturbations are generated near the target: in such difficult case, CPD Search needs to expand a node beyond the last parturbation before early terminating.
+
+Map wise, CPD Search outperforms ALT in maps where the euclidean distance is not very informative (like in mazes, for example in maze512-1-4) shown on the left plot. 
+
+In other maps (for example in hrt201n, right plot) CPD Search still outperforms ALT, albeit the gain is less significant.
+
 # Anytime scenario
+
+Another experiment we performed was to analyze CPD search as anytime search. Here we used RANDOM policy to generate perturbations. Since we obtained less significant performance gains, we chose to test the algorithm on hrt201n.
+We compared our algorithm against AWA using the landmark heuristics with 12 landmarks.
+
+In this scenario we obtained that in 30 microseconds CPD Search had solutions for at least a quarter of instances, while AWA had solutions for almost 0%. 
+
+By 300 microseconds CPD search had already a solution for at least three quarters of instances, while AWA had them for at most half of them;
+
+In 1ms CPD search had a solution for every instances and had computed the optimal path for at least a quarter of them.
+
+Finally in 10ms CPD Search has reached the optimal solution for every instance while AWA has to compute it for at least half of them.
 
 # Conclusion and future works
 
+In conclusion,
 
+we proposed the usage of CPD in the dynamic edge cost settings when edge costs can only increase;
+we developed a new bounded suboptimal A* variant algorithm, called CPD Search, which can be used in both optimal and anytime context as well;
+The experimental analysys we performed showed significant performance gains with respect to the state of the art.
 
-ridurre abstract ma non eliminare. ridurlo per fare spazio al contesto.
-frase che illustra un risultato di effetto in anytime.
+In the future we will explore CPD usage not only in the ssingle agent shortest path planning problem, but also in the multi agent path finding context.
+
+Thank you for your attention.
